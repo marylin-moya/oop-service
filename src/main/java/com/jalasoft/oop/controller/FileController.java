@@ -24,11 +24,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-@RestController @RequestMapping("/api")
-public class FileController
+@RestController @RequestMapping("/api") public class FileController
 {
-    @Value("${file.target-dir}")
-    private String filePath;
+
+    @Value("${file.sourcePath}") private String filePath;
 
     private static final Logger LOGGER = LogManager.getLogger();
 

@@ -27,6 +27,7 @@ import java.nio.file.Paths;
  */
 public class FileHelper
 {
+
     private static final Logger LOGGER = LogManager.getLogger();
 
     /**
@@ -36,15 +37,20 @@ public class FileHelper
      * @param file
      * @throws IOException
      */
-    static public void saveUploadFile(String filePath, MultipartFile file) throws IOException
+    static public boolean saveUploadFile(String filePath, MultipartFile file)
+    throws IOException
     {
-        LOGGER.info("Storing {} file if is not empty.", file.getName());
-        if (!file.isEmpty()) {
+        if (!file.isEmpty())
+        {
+            LOGGER.info("Storing {} file.", file.getOriginalFilename());
             byte[] bytes = file.getBytes();
             createFolder(filePath);
             Path path = Paths.get(String.format("%s%s", filePath, file.getOriginalFilename()));
             Files.write(path, bytes);
+            return true;
         }
+        LOGGER.info("File object is empty.", file.getOriginalFilename());
+        return false;
     }
 
     /**
@@ -52,9 +58,13 @@ public class FileHelper
      *
      * @param folderPath
      */
-    static public void createFolder(String folderPath) {
+    static public void createFolder(String folderPath)
+    {
+
         File folder = new File(folderPath);
-        if (!folder.exists()) {
+        if (!folder.exists())
+        {
+            LOGGER.info("{} folder does not exists. Creating the folder: ", folder);
             folder.mkdirs();
         }
     }

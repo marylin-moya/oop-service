@@ -2,3 +2,5 @@
 /build/*
 /gradle/*
 /gradlew*
+/src/main/resources/sourcePath/*
+/thirdParty/*
